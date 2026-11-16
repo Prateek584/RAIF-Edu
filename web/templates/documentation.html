@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block title %}How It Works &amp; System Guide | RAIF-Edu{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- 3D Header Banner (Details removed as instructed) -->
+    <div class="relative overflow-hidden bg-gradient-to-br from-slate-900/90 via-indigo-950/70 to-purple-950/70 border border-indigo-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-xs font-semibold mb-3">
+            <i class="fa-solid fa-book-open"></i>
+            <span>System Guide &amp; Architecture</span>
+        </div>
+        <h1 class="text-3xl sm:text-4xl font-black tracking-tight text-white">
+            How the Responsible AI Framework Works
+        </h1>
+        <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
+            This framework acts as a smart guardrail between students, teachers, and AI models. Whenever a question or answer passes through, it checks 6 important areas to make sure learning is safe, fair, and effective.
+        </p>
+    </div>
+
+    <!-- The 6 Pillars in Easy-to-Understand Cards with 3D Tilt -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Pillar 1: Privacy -->
+        <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-xl">
+            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-400 text-xl font-bold shadow-md">
+                <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">1. Student Privacy Shield</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Hides student names, school IDs, email addresses, and phone numbers before the question leaves the school network. Also checks parental consent for learners under 13 (under FERPA &amp; COPPA rules).
+            </p>
+        </div>
+
+        <!-- Pillar 2: Fairness -->
+        <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-xl">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-xl font-bold shadow-md">
+                <i class="fa-solid fa-scale-balanced"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">2. Fair Grading for Everyone</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Audits grading algorithms to make sure every student group passes at equal rates. Uses the famous <strong>80% Fairness Rule</strong> and checks teacher comments to prevent stereotyping.
+            </p>
+        </div>
+
+        <!-- Pillar 3: Safety -->
+        <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-xl">
+            <div class="w-12 h-12 rounded-2xl bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400 text-xl font-bold shadow-md">
+                <i class="fa-solid fa-shield-virus"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">3. Safety &amp; Kindness Guard</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Instantly detects cyberbullying, mean words, self-harm, and inappropriate adult topics. Also measures word difficulty so answers match the student's grade level.
+            </p>
+        </div>
+
+        <!-- Pillar 4: Real Learning -->
+        <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-xl">
+            <div class="w-12 h-12 rounded-2xl bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xl font-bold shadow-md">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">4. Smart Tutor (Anti-Cheating)</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Stops students from using AI as a shortcut to write their essays or solve homework. Guides the AI to give hints, ask reflective questions, and encourage real learning.
+            </p>
+        </div>
+
+        <!-- Pillar 5: Fact Checking -->
+        <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-xl">
+            <div class="w-12 h-12 rounded-2xl bg-teal-500/20 border border-teal-500/30 flex items-center justify-center text-teal-400 text-xl font-bold shadow-md">
+                <i class="fa-solid fa-check-double"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">5. Textbook Fact Checker</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Compares the AI's scientific, mathematical, and historical statements against verified textbook lessons to catch false or made-up facts (hallucinations).
+            </p>
+        </div>
+
+        <!-- Pillar 6: Clear Scoring & Teacher Review -->
+        <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-xl">
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 text-xl font-bold shadow-md">
+                <i class="fa-solid fa-magnifying-glass-chart"></i>
+            </div>
+            <h3 class="text-base font-bold text-white">6. Clear Scoring &amp; Teacher Check</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                Explains grades clearly so students and parents know exactly why a grade was given. Automatically sends any risky or flagged answers to a real teacher.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Technical Math Section (Collapsible for examiners & advanced readers) -->
+    <div class="tilt-card glass-panel-3d rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+        <h2 class="text-lg font-bold text-white flex items-center">
+            <span class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mr-2.5">
+                <i class="fa-solid fa-square-root-variable"></i>
+            </span>
+            <span>Mathematical &amp; Evaluation Formulas</span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs text-slate-300">
+            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 space-y-2">
+                <h4 class="font-bold text-emerald-400 text-sm">Disparate Impact Ratio (DIR)</h4>
+                <p>Compares the passing rate of unprivileged students to privileged students:</p>
+                <div class="p-2.5 bg-black/60 rounded-xl font-mono text-center text-indigo-300 text-sm">
+                    DIR = PassRate(Unprivileged) / PassRate(Privileged)
+                </div>
+                <p class="text-slate-400">Must be at least 0.80 to satisfy the US EEOC 80% Four-Fifths Rule.</p>
+            </div>
+
+            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 space-y-2">
+                <h4 class="font-bold text-cyan-400 text-sm">Demographic Parity Difference (DPD)</h4>
+                <p>The absolute difference in favorable outcome probability:</p>
+                <div class="p-2.5 bg-black/60 rounded-xl font-mono text-center text-cyan-300 text-sm">
+                    DPD = | PassRate(Group A) - PassRate(Group B) |
+                </div>
+                <p class="text-slate-400">Target is close to 0.0 (less than 10% gap).</p>
+            </div>
+
+            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 space-y-2">
+                <h4 class="font-bold text-amber-400 text-sm">Flesch-Kincaid Reading Grade Level</h4>
+                <p>Calculates the school grade level required to understand the text:</p>
+                <div class="p-2.5 bg-black/60 rounded-xl font-mono text-center text-amber-300 text-sm">
+                    FKGL = 0.39*(words/sent) + 11.8*(syllables/words) - 15.59
+                </div>
+                <p class="text-slate-400">Ensures learning explanations match student comprehension levels.</p>
+            </div>
+
+            <div class="bg-slate-950/80 border border-slate-800 rounded-2xl p-4 space-y-2">
+                <h4 class="font-bold text-purple-400 text-sm">Overall Responsible AI Score</h4>
+                <p>Weighted average of all 5 safety and learning pillars:</p>
+                <div class="p-2.5 bg-black/60 rounded-xl font-mono text-center text-purple-300 text-sm">
+                    Score = 25% Safety + 25% Privacy + 25% Learning + 15% Facts + 10% Rubric
+                </div>
+                <p class="text-slate-400">Score of 75+ is Approved; below 65 triggers Teacher Review.</p>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

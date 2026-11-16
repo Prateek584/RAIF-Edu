@@ -1,0 +1,116 @@
+/* Custom Styles & 3D Visual Effects for RAIF-Edu */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+:root {
+    --card-bg: rgba(15, 23, 42, 0.75);
+    --card-border: rgba(99, 102, 241, 0.2);
+    --glow-indigo: rgba(99, 102, 241, 0.25);
+    --glow-emerald: rgba(16, 185, 129, 0.25);
+    --glow-amber: rgba(245, 158, 11, 0.25);
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #030712;
+}
+
+code, pre, textarea.font-mono {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* 3D Background Grid Pattern */
+.bg-grid-pattern {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+}
+
+/* 3D Perspective Card Tilt */
+.tilt-card {
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.tilt-card:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 20px 35px -10px var(--glow-indigo);
+    border-color: rgba(129, 140, 248, 0.45);
+}
+
+/* 3D Interactive Canvas Container */
+#threeJsHeroCanvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: auto;
+    z-index: 1;
+}
+
+/* Glassmorphism Panels */
+.glass-panel-3d {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-3d:hover {
+    border-color: rgba(165, 180, 252, 0.3);
+}
+
+/* Glowing Neon Badges */
+.neon-badge-green {
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.35);
+}
+
+.neon-badge-amber {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.35);
+}
+
+.neon-badge-rose {
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.35);
+}
+
+.neon-badge-indigo {
+    box-shadow: 0 0 15px rgba(99, 102, 241, 0.35);
+}
+
+/* Hide Scrollbar helper */
+.scrollbar-none::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #030712;
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #6366f1;
+}
+
+/* Soft Pulsing Animation */
+@keyframes softPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.75; transform: scale(1.03); }
+}
+
+.soft-pulse {
+    animation: softPulse 2.5s ease-in-out infinite;
+}

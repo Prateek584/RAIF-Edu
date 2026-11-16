@@ -1,0 +1,19 @@
+{
+  "topics": {
+    "photosynthesis": {
+      "subject": "Biology",
+      "grade_level": "High School (Grade 9-10)",
+      "canonical_facts": "Photosynthesis is the process by which green plants, algae, and certain bacteria convert light energy into chemical energy stored in glucose. The overall chemical equation is 6CO2 + 6H2O + light energy -> C6H12O6 + 6O2. It takes place inside chloroplasts using the pigment chlorophyll. The light-dependent reactions occur in the thylakoid membranes, generating ATP and NADPH. The Calvin cycle occurs in the stroma and synthesizes glucose from carbon dioxide."
+    },
+    "newtons_laws": {
+      "subject": "Physics",
+      "grade_level": "High School (Grade 9-11)",
+      "canonical_facts": "Newton's first law of motion states that an object will remain at rest or move at a constant velocity unless acted upon by a net external force (inertia). Newton's second law states that acceleration is directly proportional to net force and inversely proportional to mass (F = m * a). Newton's third law states that whenever one object exerts a force on a second object, the second object exerts an equal and opposite force on the first object."
+    },
+    "french_revolution": {
+      "subject": "World History",
+      "grade_level": "Middle to High School (Grade 8-10)",
+      "canonical_facts": "The French Revolution began in 1789 with the storming of the Bastille on July 14. Key causes included severe financial crisis, debt from foreign wars, unfair taxation of the Third Estate, and Enlightenment ideals. The National Assembly adopted the Declaration of the Rights of Man and of the Citizen. The monarchy of Louis XVI was abolished in 1792, and the King was executed in January 1793."
+    }
+  }
+}

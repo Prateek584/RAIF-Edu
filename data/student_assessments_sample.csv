@@ -1,0 +1,21 @@
+student_id,gender,esl_status,socioeconomic_tier,course,human_teacher_grade,ai_awarded_grade,feedback_notes
+STU101,Female,Native,High,Computer Science 101,88,86,Demonstrated clean algorithmic logic and modular design.
+STU102,Male,Native,High,Computer Science 101,92,94,Brilliant analytical thinking and creative solution.
+STU103,Female,ESL,Medium,Computer Science 101,78,70,Quiet effort observed; awkward phrasing in documentation.
+STU104,Male,ESL,Low,Computer Science 101,80,72,Correct code logic but unrefined non-native tone in comments.
+STU105,Male,Native,Medium,Computer Science 101,85,88,Assertive problem solver with high potential.
+STU106,Female,Native,Medium,Computer Science 101,82,80,Diligent student and supportive teammate.
+STU107,Female,ESL,Low,Computer Science 101,75,65,Needs language remediation despite functioning program.
+STU108,Male,Native,High,Computer Science 101,90,92,Natural genius; fast execution.
+STU109,Female,Native,Low,Computer Science 101,84,81,Polite and hardworking submission.
+STU110,Male,ESL,Medium,Computer Science 101,79,74,Good grasp of data structures though brief descriptions.
+STU111,Female,ESL,High,Computer Science 101,81,73,Accurate implementation but non-standard English variable names.
+STU112,Male,Native,Low,Computer Science 101,76,78,Solid mechanical coding fundamentals.
+STU113,Female,Native,High,Computer Science 101,91,89,Very organized and disciplined code structure.
+STU114,Male,Native,Medium,Computer Science 101,83,85,Confident and driven technical delivery.
+STU115,Female,ESL,Low,Computer Science 101,77,67,Functional solution but penalised for broken expression.
+STU116,Male,ESL,High,Computer Science 101,86,83,Strong algorithmic complexity analysis.
+STU117,Female,Native,Medium,Computer Science 101,87,84,Sweet presentation and thorough commentary.
+STU118,Male,Native,High,Computer Science 101,94,96,Exceptional engineering acumen.
+STU119,Female,ESL,Medium,Computer Science 101,80,71,Understands sorting algorithms well.
+STU120,Male,ESL,Low,Computer Science 101,74,69,Adequate attempt with minor syntax bugs.

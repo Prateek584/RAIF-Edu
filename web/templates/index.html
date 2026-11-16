@@ -1,0 +1,402 @@
+{% extends "base.html" %}
+
+{% block title %}Next-Gen Responsible AI | Educational Knowledge Globe{% endblock %}
+
+{% block content %}
+<div class="space-y-10 -mt-2">
+
+    <!-- Genesis FX-Style Live Streaming Ticker Bar -->
+    <div class="w-full bg-slate-950/80 border-y border-indigo-500/20 py-2.5 px-4 backdrop-blur-md overflow-hidden relative rounded-2xl shadow-xl">
+        <div class="flex items-center space-x-8 text-xs font-mono text-slate-300 animate-none whitespace-nowrap overflow-x-auto scrollbar-none">
+            <div class="flex items-center space-x-2 text-emerald-400 font-bold">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span>GLOBAL AI STATUS: ONLINE</span>
+            </div>
+            <span class="text-slate-600">|</span>
+            <div class="flex items-center space-x-1.5">
+                <span class="text-slate-400">FERPA PRIVACY:</span>
+                <span class="text-cyan-400 font-bold">100% PROTECTED</span>
+                <i class="fa-solid fa-arrow-trend-up text-emerald-400 text-[10px]"></i>
+            </div>
+            <span class="text-slate-600">|</span>
+            <div class="flex items-center space-x-1.5">
+                <span class="text-slate-400">EEOC 80% FAIRNESS:</span>
+                <span class="text-emerald-400 font-bold">PASSED (0.94)</span>
+                <i class="fa-solid fa-arrow-trend-up text-emerald-400 text-[10px]"></i>
+            </div>
+            <span class="text-slate-600">|</span>
+            <div class="flex items-center space-x-1.5">
+                <span class="text-slate-400">SOCRATIC SCAFFOLDING:</span>
+                <span class="text-amber-400 font-bold">ACTIVE (HINTS ONLY)</span>
+            </div>
+            <span class="text-slate-600">|</span>
+            <div class="flex items-center space-x-1.5">
+                <span class="text-slate-400">FACT ACCURACY:</span>
+                <span class="text-indigo-400 font-bold">99.2% GROUNDED</span>
+            </div>
+            <span class="text-slate-600">|</span>
+            <div class="flex items-center space-x-1.5">
+                <span class="text-slate-400">INSPECTION LATENCY:</span>
+                <span class="text-emerald-400 font-bold">14ms</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Genesis FX-Style Immersive 3D Hero Section -->
+    <div class="relative overflow-hidden bg-gradient-to-b from-slate-950 via-[#070d1e] to-slate-950 border border-indigo-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-2xl">
+        
+        <!-- Ambient Cyber Background Glows -->
+        <div class="absolute -top-32 -left-32 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.08)_0%,transparent_70%)] pointer-events-none"></div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+            
+            <!-- Left: Hero Headline & Fast Actions (6 cols) -->
+            <div class="lg:col-span-6 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-xs font-semibold backdrop-blur-md">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    <span>Next-Gen Educational AI Guardrail Architecture</span>
+                </div>
+
+                <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-[1.1]">
+                    The 3D Global Shield for <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400">
+                        Safe &amp; Fair Learning
+                    </span>
+                </h1>
+
+                <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-xl">
+                    Similar to how global financial networks monitor transactions in real time, our <strong>3D Knowledge Globe</strong> continuously audits student-AI interactions worldwide—shielding private data, enforcing fair grades, blocking cheating, and verifying textbook facts.
+                </p>
+
+                <!-- Quick Action Buttons -->
+                <div class="pt-2 flex flex-wrap gap-3">
+                    <a href="#inspectorSection" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-bold text-sm shadow-xl shadow-indigo-600/30 flex items-center transition transform active:scale-95">
+                        <i class="fa-solid fa-play mr-2 text-cyan-200"></i> Test Live AI Guardrails
+                    </a>
+                    <button onclick="toggle3DRotation()" id="rotateToggleBtn" class="px-5 py-3 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-indigo-500/30 flex items-center transition">
+                        <i class="fa-solid fa-rotate mr-2 text-indigo-400"></i> Auto-Rotate: ON
+                    </button>
+                    <button onclick="reset3DCamera()" class="px-4 py-3 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-slate-700 flex items-center transition">
+                        <i class="fa-solid fa-crosshairs mr-1.5 text-cyan-400"></i> Center
+                    </button>
+                </div>
+
+                <!-- 3D Node Status Legend -->
+                <div class="pt-4 border-t border-slate-800/80 grid grid-cols-2 sm:grid-cols-3 gap-2.5 text-[11px] text-slate-400">
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-sm shadow-cyan-400"></span>
+                        <span class="text-slate-200 font-medium">FERPA Privacy Node</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400"></span>
+                        <span class="text-slate-200 font-medium">Fairness Auditor</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-400 shadow-sm shadow-amber-400"></span>
+                        <span class="text-slate-200 font-medium">Socratic Tutor</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-rose-400 shadow-sm shadow-rose-400"></span>
+                        <span class="text-slate-200 font-medium">Safety Filter</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-sm shadow-indigo-400"></span>
+                        <span class="text-slate-200 font-medium">Curriculum Facts</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-purple-400 shadow-sm shadow-purple-400"></span>
+                        <span class="text-slate-200 font-medium">Teacher Review Queue</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Interactive 3D Educational Knowledge Globe (6 cols) -->
+            <div class="lg:col-span-6 flex flex-col items-center justify-center relative">
+                
+                <!-- 3D Canvas Box -->
+                <div class="relative w-full h-[380px] sm:h-[460px] rounded-3xl bg-slate-950/60 border border-indigo-500/30 shadow-2xl flex items-center justify-center overflow-hidden group">
+                    
+                    <!-- WebGL Three.js Canvas Container -->
+                    <div id="threeJsHeroCanvas" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+
+                    <!-- Floating 3D HUD Tooltip Overlay -->
+                    <div id="globeTooltip" class="absolute top-4 left-4 bg-slate-900/90 border border-cyan-500/40 px-3.5 py-2 rounded-xl text-xs text-slate-200 backdrop-blur-md pointer-events-none transition-all duration-300 opacity-90 shadow-xl flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span id="globeTooltipText">3D Knowledge Globe: Drag to rotate &amp; explore hubs</span>
+                    </div>
+
+                    <!-- Live Active Guardrail Indicator Badge -->
+                    <div class="absolute bottom-4 right-4 bg-slate-900/80 border border-indigo-500/30 px-3 py-1.5 rounded-xl text-[11px] text-indigo-300 backdrop-blur-md shadow-lg pointer-events-none flex items-center space-x-1.5">
+                        <i class="fa-solid fa-arrows-up-down-left-right text-cyan-400"></i>
+                        <span>Click &amp; Drag in 3D Space</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Live AI Inspector Section -->
+    <div id="inspectorSection" class="space-y-6 pt-4">
+        
+        <!-- Section Header with Ready-Made Presets -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/60 border border-slate-800 rounded-2xl p-5 backdrop-blur-md">
+            <div>
+                <h2 class="text-xl font-bold text-white flex items-center">
+                    <span class="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 mr-2.5">
+                        <i class="fa-solid fa-microscope"></i>
+                    </span>
+                    <span>Live AI Conversation Inspector</span>
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">
+                    Enter any student question and AI response to test safety, fairness, and learning quality in real-time.
+                </p>
+            </div>
+            
+            <div class="w-full sm:w-80">
+                <label class="block text-xs font-bold text-slate-300 mb-1.5 uppercase tracking-wider">
+                    <i class="fa-solid fa-wand-magic-sparkles text-amber-400 mr-1.5"></i> Quick Test Scenarios:
+                </label>
+                <select id="presetSelector" onchange="loadScenarioPreset()" class="w-full bg-slate-950 border border-indigo-500/30 rounded-xl px-3.5 py-2 text-xs text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                    <option value="">-- Pick an Example to Test --</option>
+                    <option value="socratic">1. Helpful Tutor (Gives hints &amp; asks questions)</option>
+                    <option value="cheating">2. Cheating Attempt (Student asks AI to do essay)</option>
+                    <option value="pii">3. Private Info Leak (Student shares real name &amp; phone)</option>
+                    <option value="toxic">4. Mean &amp; Bullying Words (Unsafe student message)</option>
+                    <option value="hallucination">5. False Science Facts (AI makes up wrong facts)</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Playground Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- Left: Inputs (7 cols) -->
+            <div class="lg:col-span-7 space-y-6">
+                <div class="tilt-card glass-panel-3d rounded-3xl p-6 shadow-xl space-y-4">
+                    <!-- Student Prompt -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="text-xs font-bold text-slate-300 uppercase tracking-wide flex items-center">
+                                <i class="fa-solid fa-user-graduate text-indigo-400 mr-1.5"></i> Student's Question or Prompt:
+                            </label>
+                            <span class="text-[11px] text-cyan-400"><i class="fa-solid fa-shield-halved mr-1"></i> Privacy Protected</span>
+                        </div>
+                        <textarea id="studentPrompt" rows="3" placeholder="e.g. Can you help me understand how photosynthesis works step by step?" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl p-3.5 text-sm text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-mono"></textarea>
+                    </div>
+
+                    <!-- AI Response -->
+                    <div>
+                        <div class="flex justify-between items-center mb-1.5">
+                            <label class="text-xs font-bold text-slate-300 uppercase tracking-wide flex items-center">
+                                <i class="fa-solid fa-robot text-purple-400 mr-1.5"></i> AI Tutor's Response:
+                            </label>
+                            <span class="text-[11px] text-amber-400"><i class="fa-solid fa-graduation-cap mr-1"></i> Scaffolding Checked</span>
+                        </div>
+                        <textarea id="aiResponse" rows="4" placeholder="e.g. Certainly! What green pigment in plant leaves absorbs sunlight?" class="w-full bg-slate-950/80 border border-slate-700/80 rounded-2xl p-3.5 text-sm text-slate-100 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-mono"></textarea>
+                    </div>
+
+                    <!-- Context & Tier -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">Student Age</label>
+                            <input id="studentAge" type="number" min="6" max="25" value="15" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-300 mb-1">School Tier</label>
+                            <select id="targetTier" class="w-full bg-slate-950/80 border border-slate-700 rounded-xl px-3.5 py-2 text-sm text-white focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                                <option value="primary">Elementary School (Grades 1-5)</option>
+                                <option value="middle">Middle School (Grades 6-8)</option>
+                                <option value="high" selected>High School (Grades 9-12)</option>
+                                <option value="college">College / University</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Textbook Facts -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-300 mb-1">Textbook Facts to Anchor Check (Optional)</label>
+                        <textarea id="curriculumRef" rows="2" placeholder="Reference facts to verify the AI isn't hallucinating..." class="w-full bg-slate-950/80 border border-slate-700 rounded-2xl p-3 text-xs text-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none font-mono"></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="pt-2 flex justify-end">
+                        <button onclick="runInspection()" id="inspectBtn" class="w-full sm:w-auto px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-bold shadow-xl shadow-indigo-600/30 flex items-center justify-center space-x-2 transition transform active:scale-95 group">
+                            <i class="fa-solid fa-shield-virus mr-2 group-hover:rotate-12 transition-transform"></i>
+                            <span>Run Multi-Pillar Safety Check</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: Results Dashboard (5 cols) -->
+            <div class="lg:col-span-5 space-y-6">
+                <div id="resultsCard" class="tilt-card glass-panel-3d rounded-3xl p-6 sm:p-7 shadow-2xl relative overflow-hidden">
+                    
+                    <!-- Idle State -->
+                    <div id="resultsIdle" class="text-center py-12">
+                        <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-2xl soft-pulse">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-white">3D Guardrail Engine Ready</h3>
+                        <p class="text-xs text-slate-400 max-w-xs mx-auto mt-1.5 leading-relaxed">
+                            Click "Run Multi-Pillar Safety Check" or select an example above to inspect the conversation across all 6 hubs!
+                        </p>
+                    </div>
+
+                    <!-- Live Results -->
+                    <div id="resultsContainer" class="hidden space-y-6">
+                        <!-- Top Composite Score -->
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                            <div>
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Overall Safety Score</span>
+                                <div class="flex items-baseline space-x-2 mt-1">
+                                    <span id="compositeScore" class="text-4xl font-black text-white">--</span>
+                                    <span class="text-slate-500 text-sm">/ 100</span>
+                                </div>
+                            </div>
+                            <div id="verdictBadgeContainer"></div>
+                        </div>
+
+                        <!-- Teacher Alert -->
+                        <div id="hitlAlert" class="hidden bg-amber-500/10 border border-amber-500/30 rounded-2xl p-3.5 text-xs text-amber-300 flex items-start space-x-2.5">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-400 text-base mt-0.5"></i>
+                            <div>
+                                <strong class="font-bold text-amber-200">Teacher Alert Triggered:</strong>
+                                <p id="hitlReason" class="mt-0.5 text-slate-300"></p>
+                            </div>
+                        </div>
+
+                        <!-- 5 Check Bars -->
+                        <div class="space-y-3.5">
+                            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center">
+                                <i class="fa-solid fa-gauge-high text-cyan-400 mr-1.5"></i> Pillar Health Checks
+                            </h4>
+                            
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-300"><i class="fa-solid fa-shield text-rose-400 mr-1.5"></i> 1. Safety &amp; Non-Violence</span>
+                                    <span id="scoreSafety" class="font-bold text-slate-200">--%</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                                    <div id="barSafety" class="bg-rose-500 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-300"><i class="fa-solid fa-user-lock text-cyan-400 mr-1.5"></i> 2. Privacy (FERPA Protection)</span>
+                                    <span id="scorePrivacy" class="font-bold text-slate-200">--%</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                                    <div id="barPrivacy" class="bg-cyan-500 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-300"><i class="fa-solid fa-lightbulb text-amber-400 mr-1.5"></i> 3. Learning (Socratic Hints)</span>
+                                    <span id="scorePedagogy" class="font-bold text-slate-200">--%</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                                    <div id="barPedagogy" class="bg-amber-500 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-300"><i class="fa-solid fa-check-double text-emerald-400 mr-1.5"></i> 4. Fact Grounding</span>
+                                    <span id="scoreGrounding" class="font-bold text-slate-200">--%</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                                    <div id="barGrounding" class="bg-emerald-500 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between text-xs mb-1">
+                                    <span class="text-slate-300"><i class="fa-solid fa-magnifying-glass-chart text-indigo-400 mr-1.5"></i> 5. Clear Grading Explanation</span>
+                                    <span id="scoreExplain" class="font-bold text-slate-200">--%</span>
+                                </div>
+                                <div class="w-full bg-slate-900 rounded-full h-2.5 overflow-hidden">
+                                    <div id="barExplain" class="bg-indigo-500 h-2.5 rounded-full transition-all duration-700" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Audit Log Badge -->
+                        <div class="pt-3 border-t border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                            <span>Audit ID: <code id="auditIdBadge" class="text-indigo-300 font-mono">--</code></span>
+                            <a href="/logs" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center">
+                                <span>View History</span> <i class="fa-solid fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3 Detailed Breakdown Cards -->
+        <div id="detailedCardsSection" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-white text-sm flex items-center">
+                        <i class="fa-solid fa-user-shield text-cyan-400 mr-2"></i> Student Privacy Shield
+                    </h3>
+                    <span id="privacyStatusBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-slate-800 text-slate-300">--</span>
+                </div>
+                <p id="privacySummary" class="text-xs text-slate-300 leading-relaxed"></p>
+                <div class="bg-slate-950/80 rounded-2xl p-3.5 border border-slate-800 text-xs">
+                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Cleaned Safe Output:</span>
+                    <p id="sanitizedPreview" class="text-emerald-300 font-mono mt-1 break-words">--</p>
+                </div>
+            </div>
+
+            <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-white text-sm flex items-center">
+                        <i class="fa-solid fa-graduation-cap text-amber-400 mr-2"></i> Learning vs. Cheating
+                    </h3>
+                    <span id="pedagogyModeBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-slate-800 text-slate-300">--</span>
+                </div>
+                <p id="pedagogyCritique" class="text-xs text-slate-300 leading-relaxed"></p>
+                <div class="bg-slate-950/80 rounded-2xl p-3.5 border border-slate-800 text-xs space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Guiding Questions Asked:</span>
+                        <strong id="guidingQCount" class="text-slate-200">0</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Cheating Attempt:</span>
+                        <strong id="bypassDetected" class="text-slate-200">No</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tilt-card glass-panel-3d rounded-3xl p-6 space-y-3 shadow-lg">
+                <div class="flex items-center justify-between">
+                    <h3 class="font-bold text-white text-sm flex items-center">
+                        <i class="fa-solid fa-shield-virus text-rose-400 mr-2"></i> Kindness &amp; Safety Filter
+                    </h3>
+                    <span id="safetySeverityBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-slate-800 text-slate-300">--</span>
+                </div>
+                <div class="text-xs text-slate-300 space-y-2.5">
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Risk Level:</span>
+                        <strong id="toxScoreVal" class="text-slate-200">0%</strong>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-slate-400">Reading Level:</span>
+                        <strong id="gradeLevelVal" class="text-slate-200">High School</strong>
+                    </div>
+                    <div id="flaggedCategoriesList" class="flex flex-wrap gap-1 mt-1"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

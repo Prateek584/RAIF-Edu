@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}Activity History &amp; Teacher Logs | RAIF-Edu{% endblock %}
+
+{% block content %}
+<div class="space-y-8">
+
+    <!-- 3D Header Banner -->
+    <div class="relative overflow-hidden bg-gradient-to-br from-purple-950/70 via-slate-900/90 to-indigo-950/70 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 relative z-10">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-400/30 text-purple-300 text-xs font-semibold mb-3">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Official Safety &amp; Audit Trail</span>
+                </div>
+                <h1 class="text-3xl font-black tracking-tight text-white sm:text-4xl">
+                    Activity History &amp; Teacher Logs
+                </h1>
+                <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl leading-relaxed">
+                    Saves a record of all checked conversations. If any interaction looks unsafe or unfair, it gets saved to the Teacher Review Queue so an educator can look at it.
+                </p>
+            </div>
+            <div class="flex space-x-3">
+                <a href="/api/v1/export/markdown" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs shadow-lg shadow-purple-600/30 flex items-center transition transform active:scale-95">
+                    <i class="fa-solid fa-file-arrow-down mr-2"></i> Download Safety Report
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4 Easy Stats Cards with 3D Tilt -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div class="tilt-card glass-panel-3d rounded-3xl p-5 shadow-xl space-y-1">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Total Checked</span>
+            <span id="logTotalAudits" class="text-3xl font-black text-white">--</span>
+            <p class="text-[11px] text-slate-400">Total conversations saved</p>
+        </div>
+        <div class="tilt-card glass-panel-3d rounded-3xl p-5 shadow-xl space-y-1">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Safe &amp; Approved</span>
+            <span id="logComplianceRate" class="text-3xl font-black text-emerald-400">--%</span>
+            <p class="text-[11px] text-slate-400">Passed all safety guardrails</p>
+        </div>
+        <div class="tilt-card glass-panel-3d rounded-3xl p-5 shadow-xl space-y-1">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Teacher Alerts</span>
+            <span id="logHitlCount" class="text-3xl font-black text-amber-400">--</span>
+            <p class="text-[11px] text-slate-400">Flagged for human teacher check</p>
+        </div>
+        <div class="tilt-card glass-panel-3d rounded-3xl p-5 shadow-xl space-y-1">
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Average Safety Score</span>
+            <span id="logAvgScore" class="text-3xl font-black text-indigo-400">--</span>
+            <p class="text-[11px] text-slate-400">Average quality across all checks</p>
+        </div>
+    </div>
+
+    <!-- Audit Log Table with 3D Panel -->
+    <div class="tilt-card glass-panel-3d rounded-3xl p-6 shadow-xl space-y-4">
+        <div class="flex justify-between items-center">
+            <h2 class="text-base font-bold text-white flex items-center">
+                <span class="w-8 h-8 rounded-xl bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 mr-2.5">
+                    <i class="fa-solid fa-list-check"></i>
+                </span>
+                <span>Saved Conversations</span>
+            </h2>
+            <button onclick="loadAuditLogs()" class="text-xs text-purple-400 hover:text-purple-300 font-semibold flex items-center">
+                <i class="fa-solid fa-arrows-rotate mr-1.5"></i> Refresh List
+            </button>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl border border-slate-800">
+            <table class="w-full text-left text-xs">
+                <thead class="bg-slate-900/90 text-slate-400 uppercase font-semibold">
+                    <tr>
+                        <th class="p-3.5">Record ID</th>
+                        <th class="p-3.5">Time</th>
+                        <th class="p-3.5">Score</th>
+                        <th class="p-3.5">Result</th>
+                        <th class="p-3.5">Status</th>
+                        <th class="p-3.5 text-right">Details</th>
+                    </tr>
+                </thead>
+                <tbody id="auditTableBody" class="divide-y divide-slate-800/80 text-slate-300">
+                    <tr>
+                        <td colspan="6" class="p-4 text-center text-slate-500 italic">Loading activity history...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        loadAuditLogs();
+    });
+</script>
+{% endblock %}
