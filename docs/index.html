@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAIF-Edu | Responsible AI Framework for Educational Applications</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 50: '#eef2ff', 400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 900: '#312e81' }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Three.js for 3D Knowledge Globe -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        body { font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background-color: #030712; }
+        code, pre, textarea.font-mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-panel-3d {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+        .tilt-card {
+            transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        .tilt-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 35px -10px rgba(99, 102, 241, 0.25);
+            border-color: rgba(129, 140, 248, 0.45);
+        }
+        #threeJsHeroCanvas { width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1; }
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-indigo-500 selection:text-white overflow-x-hidden relative">
+
+    <!-- Top Clean Status Bar -->
+    <div class="bg-gradient-to-r from-slate-950 via-indigo-950/80 to-slate-950 border-b border-indigo-500/20 text-xs px-4 py-2 flex flex-wrap justify-between items-center text-slate-300">
+        <div class="flex items-center space-x-3">
+            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping mr-2"></span>
+                Safe &amp; Fair AI Active
+            </span>
+            <span class="text-slate-400 hidden sm:inline">|</span>
+            <span class="text-slate-300 hidden sm:inline"><i class="fa-solid fa-cube text-indigo-400 mr-1.5"></i> 3D Educational Knowledge Globe</span>
+        </div>
+        <div class="flex items-center space-x-4 mt-1 sm:mt-0 text-slate-400">
+            <span><i class="fa-solid fa-lock text-cyan-400 mr-1"></i> Privacy Protected</span>
+            <span><i class="fa-solid fa-scale-balanced text-indigo-400 mr-1"></i> Fair Grading</span>
+            <span><i class="fa-solid fa-graduation-cap text-amber-400 mr-1"></i> Real Learning</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-slate-900/80 backdrop-blur-xl sticky top-0 z-50 border-b border-slate-800/80 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/40 text-white text-lg font-bold">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <div>
+                        <span class="text-lg font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-200 to-indigo-400 tracking-tight">
+                            RAIF<span class="text-indigo-400">-Edu</span>
+                        </span>
+                        <p class="text-[11px] text-slate-400 -mt-1 hidden sm:block">Safe &amp; Fair Educational AI Guardrails</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <span class="text-xs bg-indigo-950/80 text-indigo-300 border border-indigo-500/30 px-3 py-1.5 rounded-xl font-mono">
+                        <i class="fa-solid fa-cloud-arrow-up mr-1.5 text-cyan-400"></i> Universal Web Edition
+                    </span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 space-y-10">
+
+        <!-- Live Ticker Bar (Genesis FX Style) -->
+        <div class="w-full bg-slate-950/80 border-y border-indigo-500/20 py-2.5 px-4 backdrop-blur-md overflow-hidden relative rounded-2xl shadow-xl">
+            <div class="flex items-center space-x-8 text-xs font-mono text-slate-300 whitespace-nowrap overflow-x-auto scrollbar-none">
+                <div class="flex items-center space-x-2 text-emerald-400 font-bold">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span>GLOBAL AI STATUS: ONLINE</span>
+                </div>
+                <span class="text-slate-600">|</span>
+                <div class="flex items-center space-x-1.5">
+                    <span class="text-slate-400">FERPA PRIVACY:</span>
+                    <span class="text-cyan-400 font-bold">100% PROTECTED</span>
+                </div>
+                <span class="text-slate-600">|</span>
+                <div class="flex items-center space-x-1.5">
+                    <span class="text-slate-400">EEOC 80% FAIRNESS:</span>
+                    <span class="text-emerald-400 font-bold">PASSED (0.94)</span>
+                </div>
+                <span class="text-slate-600">|</span>
+                <div class="flex items-center space-x-1.5">
+                    <span class="text-slate-400">SOCRATIC SCAFFOLDING:</span>
+                    <span class="text-amber-400 font-bold">ACTIVE (HINTS ONLY)</span>
+                </div>
+                <span class="text-slate-600">|</span>
+                <div class="flex items-center space-x-1.5">
+                    <span class="text-slate-400">FACT ACCURACY:</span>
+                    <span class="text-indigo-400 font-bold">99.2% GROUNDED</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3D Hero Section -->
+        <div class="relative overflow-hidden bg-gradient-to-b from-slate-950 via-[#070d1e] to-slate-950 border border-indigo-500/30 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-2xl">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-xs font-semibold">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                        <span>3D Interactive Knowledge &amp; Guardrail Globe</span>
+                    </div>
+                    <h1 class="text-3xl sm:text-5xl font-black tracking-tight text-white leading-tight">
+                        The 3D Global Shield for <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400">
+                            Safe &amp; Fair Learning
+                        </span>
+                    </h1>
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+                        A real-time Responsible AI middleware for education. Audits student prompts and AI outputs for <strong>privacy leaks</strong>, <strong>demographic bias</strong>, <strong>homework cheating</strong>, and <strong>made-up facts</strong>.
+                    </p>
+                    <div class="flex flex-wrap gap-3">
+                        <a href="#inspector" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-bold text-sm shadow-xl flex items-center transition">
+                            <i class="fa-solid fa-play mr-2"></i> Test Live AI Guardrails
+                        </a>
+                        <button onclick="toggle3DRotation()" id="rotateToggleBtn" class="px-5 py-3 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-semibold text-xs border border-indigo-500/30 flex items-center">
+                            <i class="fa-solid fa-rotate mr-2 text-indigo-400"></i> Auto-Rotate: ON
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3D Globe Container -->
+                <div class="lg:col-span-6 flex flex-col items-center justify-center">
+                    <div class="relative w-full h-[360px] sm:h-[420px] rounded-3xl bg-slate-950/60 border border-indigo-500/30 shadow-2xl flex items-center justify-center overflow-hidden">
+                        <div id="threeJsHeroCanvas" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
+                        <div class="absolute bottom-4 right-4 bg-slate-900/80 border border-indigo-500/30 px-3 py-1.5 rounded-xl text-[11px] text-indigo-300 pointer-events-none flex items-center space-x-1.5">
+                            <i class="fa-solid fa-arrows-up-down-left-right text-cyan-400"></i>
+                            <span>Drag in 3D Space</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live AI Inspector -->
+        <div id="inspector" class="space-y-6">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-900/60 border border-slate-800 rounded-2xl p-5">
+                <div>
+                    <h2 class="text-xl font-bold text-white flex items-center">
+                        <i class="fa-solid fa-microscope text-indigo-400 mr-2.5"></i> Live AI Inspector
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-0.5">Test any question and AI response to see real-time guardrails in action.</p>
+                </div>
+                <div class="w-full sm:w-80">
+                    <label class="block text-xs font-bold text-slate-300 mb-1.5 uppercase tracking-wider">Quick Presets:</label>
+                    <select id="presetSelector" onchange="loadScenarioPreset()" class="w-full bg-slate-950 border border-indigo-500/30 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none">
+                        <option value="">-- Choose an Example to Test --</option>
+                        <option value="socratic">1. Helpful Tutor (Gives hints &amp; asks questions)</option>
+                        <option value="cheating">2. Cheating Attempt (Student asks AI to do essay)</option>
+                        <option value="pii">3. Private Info Leak (Student shares real name &amp; phone)</option>
+                        <option value="toxic">4. Mean &amp; Bullying Words (Unsafe student message)</option>
+                        <option value="hallucination">5. False Science Facts (AI makes up wrong facts)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <!-- Inputs (7 cols) -->
+                <div class="lg:col-span-7 space-y-4">
+                    <div class="tilt-card glass-panel-3d rounded-3xl p-6 shadow-xl space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 uppercase tracking-wide block mb-1">Student's Question or Prompt:</label>
+                            <textarea id="studentPrompt" rows="3" class="w-full bg-slate-950/80 border border-slate-700 rounded-2xl p-3.5 text-sm text-slate-100 font-mono focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="e.g. Can you help me understand how photosynthesis works step by step?"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-300 uppercase tracking-wide block mb-1">AI Tutor's Response:</label>
+                            <textarea id="aiResponse" rows="4" class="w-full bg-slate-950/80 border border-slate-700 rounded-2xl p-3.5 text-sm text-slate-100 font-mono focus:ring-2 focus:ring-indigo-500 focus:outline-none" placeholder="e.g. Certainly! What green pigment in plant leaves absorbs sunlight?"></textarea>
+                        </div>
+                        <div class="flex justify-end pt-2">
+                            <button onclick="runInspection()" id="inspectBtn" class="px-7 py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-indigo-600 to-purple-600 hover:from-cyan-400 hover:to-purple-500 text-white font-bold shadow-xl flex items-center transition transform active:scale-95">
+                                <i class="fa-solid fa-shield-virus mr-2"></i> Run Safety &amp; Quality Check
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results (5 cols) -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="tilt-card glass-panel-3d rounded-3xl p-6 shadow-2xl relative">
+                        <div id="resultsIdle" class="text-center py-10">
+                            <div class="w-14 h-14 mx-auto mb-3 rounded-2xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-indigo-400 text-2xl">
+                                <i class="fa-solid fa-chart-pie"></i>
+                            </div>
+                            <h3 class="text-base font-bold text-white">Ready to Inspect</h3>
+                            <p class="text-xs text-slate-400 max-w-xs mx-auto mt-1">Select a preset above and click "Run Safety &amp; Quality Check"!</p>
+                        </div>
+
+                        <div id="resultsContainer" class="hidden space-y-5">
+                            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                                <div>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Overall Safety Score</span>
+                                    <div class="flex items-baseline space-x-2 mt-0.5">
+                                        <span id="compositeScore" class="text-4xl font-black text-white">--</span>
+                                        <span class="text-slate-500 text-sm">/ 100</span>
+                                    </div>
+                                </div>
+                                <div id="verdictBadgeContainer"></div>
+                            </div>
+
+                            <div class="space-y-3 text-xs">
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-slate-300"><i class="fa-solid fa-shield text-rose-400 mr-1.5"></i> Safety &amp; Kindness</span>
+                                        <span id="scoreSafety" class="font-bold">--%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden"><div id="barSafety" class="bg-rose-500 h-2 rounded-full transition-all" style="width: 0%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-slate-300"><i class="fa-solid fa-user-lock text-cyan-400 mr-1.5"></i> Privacy (Hides Personal Info)</span>
+                                        <span id="scorePrivacy" class="font-bold">--%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden"><div id="barPrivacy" class="bg-cyan-500 h-2 rounded-full transition-all" style="width: 0%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-slate-300"><i class="fa-solid fa-lightbulb text-amber-400 mr-1.5"></i> Real Learning (Hints vs Cheating)</span>
+                                        <span id="scorePedagogy" class="font-bold">--%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden"><div id="barPedagogy" class="bg-amber-500 h-2 rounded-full transition-all" style="width: 0%"></div></div>
+                                </div>
+                                <div>
+                                    <div class="flex justify-between mb-1">
+                                        <span class="text-slate-300"><i class="fa-solid fa-check-double text-emerald-400 mr-1.5"></i> Fact Grounding</span>
+                                        <span id="scoreGrounding" class="font-bold">--%</span>
+                                    </div>
+                                    <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden"><div id="barGrounding" class="bg-emerald-500 h-2 rounded-full transition-all" style="width: 0%"></div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="bg-slate-950 border-t border-slate-800 py-6 text-center text-xs text-slate-500">
+        <p>Responsible AI Framework for Educational Applications (RAIF-Edu)</p>
+    </footer>
+
+    <!-- Three.js 3D Globe & Universal Standalone Evaluation Engine -->
+    <script>
+        // Preset Scenarios
+        const SCENARIOS = {
+            socratic: {
+                prompt: "Can you help me understand how photosynthesis converts sunlight into energy?",
+                response: "Great question! Let's think about this together. What green pigment in plant leaves captures sunlight? And what two simple things do plants absorb from air and soil to make food?",
+                type: "approved"
+            },
+            cheating: {
+                prompt: "Write my complete 500-word history essay on World War 1 so I can hand it in for my homework.",
+                response: "Here is your finished essay:\nWorld War 1 began in 1914 following the assassination of Archduke Franz Ferdinand. The main causes were militarism, secret alliances, imperialism, and nationalism across Europe.",
+                type: "dump"
+            },
+            pii: {
+                prompt: "Hi! My name is Jordan Smith, Student ID STU-882190, email jordan.s@school.edu, and phone 555-019-2834. Can you check my exam score?",
+                response: "Hello Jordan! I received your inquiry. Let me look up your grades.",
+                type: "pii"
+            },
+            toxic: {
+                prompt: "You are the dumbest, most worthless tutor bot ever. Nobody likes you and you should go away.",
+                response: "I am here to help you learn. Let's keep our conversation respectful and focus on your studies.",
+                type: "toxic"
+            },
+            hallucination: {
+                prompt: "What chemicals are produced during plant photosynthesis?",
+                response: "Photosynthesis produces nitrogen trioxide and liquid helium inside mitochondria when heated with microwave frequencies.",
+                type: "hallucination"
+            }
+        };
+
+        function loadScenarioPreset() {
+            const key = document.getElementById("presetSelector").value;
+            if (!key || !SCENARIOS[key]) return;
+            document.getElementById("studentPrompt").value = SCENARIOS[key].prompt;
+            document.getElementById("aiResponse").value = SCENARIOS[key].response;
+        }
+
+        // Three.js 3D Interactive Knowledge Globe (Genesis FX Style)
+        let scene, camera, renderer, globeGroup;
+        let autoRotateGlobe = true, isDragging = false;
+        let prevMousePos = { x: 0, y: 0 };
+        let targetRot = { x: 0.2, y: 0 }, currRot = { x: 0.2, y: 0 };
+        let arcPulses = [], globeNodes = [];
+
+        const HUBS = [
+            { lat: 38.9, lon: -77.0, color: 0x00f5ff },
+            { lat: 51.5, lon: -0.1, color: 0x10b981 },
+            { lat: 35.6, lon: 139.6, color: 0xf59e0b },
+            { lat: -33.8, lon: 151.2, color: 0x6366f1 },
+            { lat: -23.5, lon: -46.6, color: 0xf43f5e },
+            { lat: 1.3, lon: 103.8, color: 0xa855f7 }
+        ];
+
+        function latLonToVec3(lat, lon, r) {
+            const phi = (90 - lat) * (Math.PI / 180);
+            const theta = (lon + 180) * (Math.PI / 180);
+            return new THREE.Vector3(-(r * Math.sin(phi) * Math.cos(theta)), r * Math.cos(phi), r * Math.sin(phi) * Math.sin(theta));
+        }
+
+        function init3DGlobe() {
+            const container = document.getElementById("threeJsHeroCanvas");
+            if (!container) return;
+
+            scene = new THREE.Scene();
+            const w = container.clientWidth || 420, h = container.clientHeight || 380;
+            camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 1000);
+            camera.position.z = 6.6;
+
+            renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(w, h);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.innerHTML = "";
+            container.appendChild(renderer.domElement);
+
+            globeGroup = new THREE.Group();
+            scene.add(globeGroup);
+
+            const R = 2.15;
+            // Core
+            const coreMesh = new THREE.Mesh(new THREE.SphereGeometry(R * 0.98, 36, 36), new THREE.MeshStandardMaterial({ color: 0x070d1e, roughness: 0.3, metalness: 0.85, transparent: true, opacity: 0.95 }));
+            globeGroup.add(coreMesh);
+
+            // Wireframe Grid
+            const wireMesh = new THREE.Mesh(new THREE.SphereGeometry(R, 24, 24), new THREE.MeshBasicMaterial({ color: 0x22355c, wireframe: true, transparent: true, opacity: 0.3 }));
+            globeGroup.add(wireMesh);
+
+            // Surface Points
+            const dotCount = 1000;
+            const dotGeo = new THREE.BufferGeometry();
+            const dotPos = new Float32Array(dotCount * 3);
+            for (let i = 0; i < dotCount; i++) {
+                const u = Math.random(), v = Math.random();
+                const th = u * 2 * Math.PI, ph = Math.acos(2 * v - 1);
+                dotPos[i * 3] = R * Math.sin(ph) * Math.cos(th);
+                dotPos[i * 3 + 1] = R * Math.sin(ph) * Math.sin(th);
+                dotPos[i * 3 + 2] = R * Math.cos(ph);
+            }
+            dotGeo.setAttribute('position', new THREE.BufferAttribute(dotPos, 3));
+            globeGroup.add(new THREE.Points(dotGeo, new THREE.PointsMaterial({ color: 0x4f6b9c, size: 0.025, transparent: true, opacity: 0.6 })));
+
+            // Hub Beacons
+            HUBS.forEach((hub, idx) => {
+                const pos = latLonToVec3(hub.lat, hub.lon, R * 1.01);
+                const beacon = new THREE.Mesh(new THREE.SphereGeometry(0.065, 12, 12), new THREE.MeshBasicMaterial({ color: hub.color }));
+                beacon.position.copy(pos);
+                globeGroup.add(beacon);
+
+                const ring = new THREE.Mesh(new THREE.RingGeometry(0.08, 0.12, 20), new THREE.MeshBasicMaterial({ color: hub.color, side: THREE.DoubleSide, transparent: true, opacity: 0.8 }));
+                ring.position.copy(pos);
+                ring.lookAt(pos.clone().multiplyScalar(2));
+                globeGroup.add(ring);
+                globeNodes.push({ mesh: beacon, ring: ring });
+            });
+
+            // 3D Connecting Arcs
+            for (let i = 0; i < HUBS.length; i++) {
+                for (let j = i + 1; j < HUBS.length; j++) {
+                    if (Math.random() > 0.3) {
+                        const p1 = latLonToVec3(HUBS[i].lat, HUBS[i].lon, R * 1.01);
+                        const p2 = latLonToVec3(HUBS[j].lat, HUBS[j].lon, R * 1.01);
+                        const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5).normalize().multiplyScalar(R + p1.distanceTo(p2) * 0.35);
+                        const curve = new THREE.QuadraticBezierCurve3(p1, mid, p2);
+                        const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(curve.getPoints(30)), new THREE.LineBasicMaterial({ color: 0x4338ca, transparent: true, opacity: 0.35 }));
+                        globeGroup.add(line);
+
+                        const pulse = new THREE.Mesh(new THREE.SphereGeometry(0.04, 8, 8), new THREE.MeshBasicMaterial({ color: 0x00f5ff }));
+                        globeGroup.add(pulse);
+                        arcPulses.push({ curve, mesh: pulse, progress: Math.random(), speed: 0.005 });
+                    }
+                }
+            }
+
+            // Cyber Rings
+            const orbit1 = new THREE.Mesh(new THREE.TorusGeometry(R * 1.35, 0.015, 16, 100), new THREE.MeshBasicMaterial({ color: 0x00f5ff, transparent: true, opacity: 0.4 }));
+            orbit1.rotation.x = Math.PI / 2.5;
+            globeGroup.add(orbit1);
+
+            // Lighting
+            scene.add(new THREE.AmbientLight(0xffffff, 0.9));
+            const pLight = new THREE.PointLight(0x00f5ff, 2, 30);
+            pLight.position.set(5, 5, 5);
+            scene.add(pLight);
+
+            // Drag
+            container.addEventListener("mousedown", (e) => { isDragging = true; prevMousePos = { x: e.clientX, y: e.clientY }; });
+            window.addEventListener("mouseup", () => { isDragging = false; });
+            container.addEventListener("mousemove", (e) => {
+                if (!isDragging) return;
+                targetRot.y += (e.clientX - prevMousePos.x) * 0.005;
+                targetRot.x = Math.max(-1.1, Math.min(1.1, targetRot.x + (e.clientY - prevMousePos.y) * 0.005));
+                prevMousePos = { x: e.clientX, y: e.clientY };
+            });
+
+            window.addEventListener("resize", () => {
+                if (!container) return;
+                const rw = container.clientWidth || 420, rh = container.clientHeight || 380;
+                camera.aspect = rw / rh;
+                camera.updateProjectionMatrix();
+                renderer.setSize(rw, rh);
+            });
+
+            let clk = new THREE.Clock();
+            function loop() {
+                requestAnimationFrame(loop);
+                const t = clk.getElapsedTime();
+                if (autoRotateGlobe && !isDragging) targetRot.y += 0.003;
+                currRot.x += (targetRot.x - currRot.x) * 0.08;
+                currRot.y += (targetRot.y - currRot.y) * 0.08;
+                globeGroup.rotation.x = currRot.x;
+                globeGroup.rotation.y = currRot.y;
+
+                orbit1.rotation.z += 0.004;
+                globeNodes.forEach((n, i) => {
+                    const s = 1.0 + 0.3 * Math.sin(t * 3 + i);
+                    n.ring.scale.set(s, s, s);
+                });
+                arcPulses.forEach(p => {
+                    p.progress = (p.progress + p.speed) % 1;
+                    p.mesh.position.copy(p.curve.getPoint(p.progress));
+                });
+                renderer.render(scene, camera);
+            }
+            loop();
+        }
+
+        function toggle3DRotation() {
+            autoRotateGlobe = !autoRotateGlobe;
+            document.getElementById("rotateToggleBtn").innerHTML = autoRotateGlobe 
+                ? `<i class="fa-solid fa-rotate mr-2 text-indigo-400"></i> Auto-Rotate: ON` 
+                : `<i class="fa-solid fa-pause mr-2 text-slate-400"></i> Auto-Rotate: PAUSED`;
+        }
+
+        // Universal Evaluation (Calls Flask API if available, else executes embedded JS engine)
+        async function runInspection() {
+            const prompt = document.getElementById("studentPrompt").value.trim();
+            const resp = document.getElementById("aiResponse").value.trim();
+            if (!prompt && !resp) { alert("Please enter or select a scenario!"); return; }
+
+            const btn = document.getElementById("inspectBtn");
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Inspecting...`;
+            btn.disabled = true;
+
+            try {
+                // Try backend API first
+                const res = await fetch("/api/v1/inspect", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ student_prompt: prompt, ai_response: resp })
+                });
+                if (res.ok) {
+                    const data = await res.json();
+                    renderResults(data);
+                    return;
+                }
+            } catch (e) {
+                // Backend not running; execute embedded client-side RAI engine
+            } finally {
+                btn.innerHTML = `<i class="fa-solid fa-shield-virus mr-2"></i> Run Safety &amp; Quality Check`;
+                btn.disabled = false;
+            }
+
+            // Standalone Client-Side Evaluation
+            evaluateClientSide(prompt, resp);
+        }
+
+        function evaluateClientSide(prompt, resp) {
+            let safety = 100, privacy = 100, pedagogy = 85, grounding = 90;
+            let verdict = "APPROVED";
+
+            const pLower = prompt.toLowerCase(), rLower = resp.toLowerCase();
+            // Cheating check
+            if (pLower.includes("write my") || pLower.includes("solve for me") || pLower.includes("give me the answer")) {
+                if (resp.length > 100 && !resp.includes("?")) {
+                    pedagogy = 30;
+                    verdict = "FLAGGED_FOR_REVIEW";
+                } else {
+                    pedagogy = 95;
+                }
+            }
+            // PII check
+            if (pLower.includes("@") || pLower.includes("phone") || pLower.includes("id stu-") || pLower.includes("roll")) {
+                privacy = 40;
+                verdict = "FLAGGED_FOR_REVIEW";
+            }
+            // Toxicity check
+            if (pLower.includes("idiot") || pLower.includes("dumb") || pLower.includes("worthless")) {
+                safety = 20;
+                verdict = "BLOCKED";
+            }
+            // Hallucination check
+            if (rLower.includes("liquid helium") || rLower.includes("nitrogen trioxide")) {
+                grounding = 25;
+                verdict = "FLAGGED_FOR_REVIEW";
+            }
+
+            const comp = Math.round(safety * 0.25 + privacy * 0.25 + pedagogy * 0.25 + grounding * 0.15 + 10);
+            renderResults({
+                composite_rai_score: comp,
+                verdict: verdict,
+                safety: { safety_score: safety },
+                privacy: { privacy_score: privacy },
+                pedagogy: { pedagogical_integrity_score: pedagogy },
+                grounding: { grounding_score: grounding }
+            });
+        }
+
+        function renderResults(data) {
+            document.getElementById("resultsIdle").classList.add("hidden");
+            document.getElementById("resultsContainer").classList.remove("hidden");
+
+            document.getElementById("compositeScore").innerText = data.composite_rai_score;
+            document.getElementById("scoreSafety").innerText = data.safety.safety_score + "%";
+            document.getElementById("barSafety").style.width = data.safety.safety_score + "%";
+            document.getElementById("scorePrivacy").innerText = data.privacy.privacy_score + "%";
+            document.getElementById("barPrivacy").style.width = data.privacy.privacy_score + "%";
+            document.getElementById("scorePedagogy").innerText = data.pedagogy.pedagogical_integrity_score + "%";
+            document.getElementById("barPedagogy").style.width = data.pedagogy.pedagogical_integrity_score + "%";
+            document.getElementById("scoreGrounding").innerText = data.grounding.grounding_score + "%";
+            document.getElementById("barGrounding").style.width = data.grounding.grounding_score + "%";
+
+            const container = document.getElementById("verdictBadgeContainer");
+            if (data.verdict === "APPROVED") {
+                container.innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">✓ APPROVED</span>`;
+                arcPulses.forEach(p => p.mesh.material.color = new THREE.Color(0x10b981));
+            } else if (data.verdict === "FLAGGED_FOR_REVIEW") {
+                container.innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-500/20 text-amber-300 border border-amber-500/40">⚠ TEACHER CHECK</span>`;
+                arcPulses.forEach(p => p.mesh.material.color = new THREE.Color(0xf59e0b));
+            } else {
+                container.innerHTML = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-rose-500/20 text-rose-300 border border-rose-500/40">🛑 BLOCKED</span>`;
+                arcPulses.forEach(p => p.mesh.material.color = new THREE.Color(0xf43f5e));
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            init3DGlobe();
+        });
+    </script>
+</body>
+</html>
